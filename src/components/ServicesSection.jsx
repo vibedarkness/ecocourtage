@@ -52,7 +52,7 @@ const ServicesSection = () => {
             >
               <div className="text-5xl mb-6">{service.icon}</div>
               <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>
-              <p className="text-gray-700">{service.description}</p>
+              <p className="text-gray-700">{service.description.slice(0, 100)}{service.description.length > 100 ? '...' : ''}</p>
             </motion.div>
           ))}
         </div>

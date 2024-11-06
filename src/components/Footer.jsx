@@ -76,7 +76,9 @@ const Footer = () => {
 
       {/* Bottom Copyright */}
       <div className="bg-gray-900 py-4 text-center">
-        <p className="text-gray-400 text-sm">© 2024 Vibedarkness. Tous droits réservés.</p>
+      <p className="text-gray-400 text-sm">
+  © 2024 <a href="https://vibedarkness.github.io/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-200 underline">Vibedarkness</a>. Tous droits réservés.
+</p>
       </div>
     </footer>
   );

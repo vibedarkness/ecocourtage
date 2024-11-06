@@ -1,0 +1,69 @@
+.carousel-container {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+  }
+  
+  .carousel {
+    display: flex;
+    gap: 30px; /* Espace entre les logos */
+  }
+  
+  .carousel-item {
+    display: inline-block;
+  }
+  
+  .partner-logo {
+    height: 60px; /* Ajustez la taille des logos selon votre design */
+    width: auto;
+  }
+
+  .carousel-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+    background-color: #f9f9f9; /* Arrière-plan */
+  }
+  
+  .carousel-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .carousel-container {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    height: 150px; /* Augmentez la hauteur */
+  }
+  
+  .carousel {
+    display: flex;
+    gap: 40px; /* Espace entre les logos */
+  }
+  
+  .carousel-item {
+    display: inline-block;
+  }
+  
+  .partner-logo {
+    height: 100px; /* Taille des logos */
+    width: 200px;
+    transition: transform 0.3s ease;
+  }
+  
+  .partner-logo:hover {
+    transform: scale(1.1); /* Agrandir le logo au survol */
+  }
+  
+  

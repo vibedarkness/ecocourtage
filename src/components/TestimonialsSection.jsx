@@ -50,7 +50,7 @@ const TestimonialsSection = () => {
         backgroundPosition: 'center', 
       }}
     >
-      <div className="container mx-auto text-center bg-white bg-opacity-70 rounded-lg p-8">
+      <div className="container mx-auto text-center bg-[#37D1C5] bg-opacity-70 rounded-lg p-8">
         <motion.h2
           initial="hidden"
           animate="visible"

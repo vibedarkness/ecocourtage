@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import backgroundImage from '../assets/7.jpeg';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
-
+import { Helmet } from 'react-helmet-async';
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -25,6 +25,11 @@ const Contact = () => {
   };
 
   return (
+    <>
+      <Helmet>
+      <title>Contact-EcoCourtage</title>
+    </Helmet>
+    
     <div className="bg-gray-100">
       <div 
   className="h-96 bg-cover bg-center relative" 
@@ -144,6 +149,7 @@ const Contact = () => {
         </motion.div>
       </div>
     </div>
+    </>
   );
 };
 

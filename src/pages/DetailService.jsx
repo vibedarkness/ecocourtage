@@ -1,15 +1,26 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import imageService from '../assets/1.jpeg';
+
 import imageFeature1 from '../assets/2.jpeg';
 import imageFeature2 from '../assets/3.jpeg';
 import imageFeature3 from '../assets/7.jpeg';
+import imageFeature4 from '../assets/5.jpeg';
 import backgroundImage from '../assets/7.jpeg';
 import Modal from '../components/Modal'; 
+import { services } from '../data';
+import { useParams } from 'react-router-dom';
 
 const ServiceDetails = () => {
-  const [selectedFeature, setSelectedFeature] = useState(0);
+
+  const { id } = useParams(); // Récupérer l'ID du post depuis l'URL
+  const serv = services.find((serv) => serv.id === parseInt(id)); // Trouver le post correspondant
+
+  if (!serv) {
+    return <div>Service non trouvé</div>; // Message d'erreur si le post n'existe pas
+  }
+  const [setSelectedFeature] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const features = [
@@ -33,9 +44,9 @@ const ServiceDetails = () => {
     },
     {
         id: 4,
-        title: "Fonctionnalité 3",
-        description: "Explorez cette troisième fonctionnalité innovante qui vous simplifie la vie.",
-        imageUrl: imageFeature3,
+        title: "Fonctionnalité 4",
+        description: "Explorez cette quatriéme fonctionnalité innovante qui vous simplifie la vie.",
+        imageUrl: imageFeature4,
       },
   ];
 
@@ -78,7 +89,8 @@ const ServiceDetails = () => {
         className="text-center space-y-4"
       >
         <h1 className="text-5xl py-20 font-bold text-gray-800 mb-4" style={{ color: '#37D1C5' }}>
-          Détails du Service
+          <strong style={{color:'black'}}>Services </strong><br />
+          <u> {serv.title}</u>
         </h1>
         
       </motion.div>
@@ -90,7 +102,7 @@ const ServiceDetails = () => {
         className="flex flex-col md:flex-row items-center py-0 space-y-6 md:space-y-0 md:space-x-8"
       >
         <motion.img
-          src={imageService}
+          src={serv.image}
           alt="Service Presentation"
           className="w-full md:w-1/2 rounded-lg shadow-lg object-cover"
           initial={{ x: -50, opacity: 0 }}
@@ -100,9 +112,7 @@ const ServiceDetails = () => {
         <div className="flex-1 space-y-4">
           <h2 className="text-3xl font-semibold text-gray-800">Présentation du Service</h2>
           <p className="text-lg text-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipiscing elit fringilla, vulputate sapien ornare faucibus praesent etiam eros, arcu aliquam nostra aptent purus felis pretium. Urna molestie platea sollicitudin class nisi pellentesque, sapien maecenas odio leo orci dignissim senectus, eu vehicula enim ac fusce. Eget mus integer fringilla molestie nullam eros class, felis potenti scelerisque dapibus vehicula lacinia dictum cubilia, aptent quisque nulla sapien sollicitudin torquent.
-
-Ridiculus penatibus vivamus nascetur posuere aliquet pharetra lacinia odio, sed taciti ultricies mus proin velit dui, fermentum mauris tristique suspendisse dictumst euismod morbi. Diam ultricies magnis enim bibendum egestas justo facilisi lacinia laoreet erat praesent iaculis congue vivamus, blandit magna hendrerit cubilia rutrum nullam nisi elementum massa mauris ante urna. Iaculis volutpat mauris
+          {serv.description}
           </p>
           
         </div>

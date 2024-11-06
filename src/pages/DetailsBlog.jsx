@@ -1,37 +1,34 @@
-import { useState } from 'react'; 
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import image3 from '../assets/6.jpeg';
-
-const post = {
-  title: "Titre du Post",
-  content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque maxime beatae, unde iure alias quaerat rerum, debitis tempora soluta illo, provident deserunt veniam vel voluptas et. Blanditiis quos id ullam!",
-  author: "Auteur du Post",
-  date: "5 Novembre 2024",
-  imageUrl: image3,
-};
-
-const recentPosts = [
-  { id: 1, title: "Post récent 1", date: "4 Novembre 2024", summary: "Résumé du post 1", imageUrl: image3 },
-  { id: 2, title: "Post récent 2", date: "3 Novembre 2024", summary: "Résumé du post 2", imageUrl: image3 },
-  { id: 3, title: "Post récent 3", date: "2 Novembre 2024", summary: "Résumé du post 3", imageUrl: image3 },
-];
+import { blogPosts } from '../data';
+import { useParams, Link } from 'react-router-dom';
 
 const PostPage = () => {
-  const [comments, setComments] = useState([
-    { id: 1, author: "Alice", content: "Très bon post !" },
-    { id: 2, author: "Bob", content: "J'ai beaucoup appris, merci." },
-  ]);
+  const { id } = useParams(); // Récupérer l'ID du post depuis l'URL
+  const post = blogPosts.find((post) => post.id === parseInt(id)); // Trouver le post correspondant
+
+  if (!post) {
+    return <div>Post non trouvé</div>; // Message d'erreur si le post n'existe pas
+  }
+
+  // État pour les commentaires et le nouvel ajout
+  const [comments, setComments] = useState(post.comments || []);
   const [newComment, setNewComment] = useState("");
 
+  // Fonction pour ajouter un commentaire
   const handleAddComment = () => {
     if (newComment.trim()) {
       setComments([
         ...comments,
         { id: comments.length + 1, author: "Utilisateur", content: newComment },
       ]);
-      setNewComment("");
+      setNewComment(""); // Réinitialiser le champ de commentaire après soumission
     }
   };
+
+  // Filtrer les autres posts pour les afficher dans "Posts récents"
+  const recentPosts = blogPosts.filter((recentPost) => recentPost.id !== parseInt(id));
 
   return (
     <div className="flex flex-col md:flex-row container mx-auto py-40 p-6 space-y-6 md:space-y-0 md:space-x-8">
@@ -43,7 +40,7 @@ const PostPage = () => {
         className="flex-1 bg-white rounded-lg shadow-lg p-8 transform hover:shadow-2xl transition-shadow"
       >
         <motion.img
-          src={post.imageUrl}
+          src={post.image}
           alt="Post"
           className="rounded-lg mb-6 w-full h-80 object-cover shadow-md"
           initial={{ scale: 0.9, opacity: 0 }}
@@ -54,7 +51,7 @@ const PostPage = () => {
         <p className="text-sm text-gray-400 mb-6">
           Par <span className="font-medium text-[#37D1C5]">{post.author}</span> • {post.date}
         </p>
-        <p className="text-lg leading-relaxed text-gray-700 mb-8">{post.content}</p>
+        <p className="text-lg leading-relaxed text-gray-700 mb-8">{post.excerpt}</p>
 
         {/* Section des commentaires */}
         <div className="mt-10">
@@ -108,19 +105,17 @@ const PostPage = () => {
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Posts récents</h2>
         <div className="space-y-6">
           {recentPosts.map((recentPost) => (
-            <motion.div
-              key={recentPost.id}
-              whileHover={{ scale: 1.05, backgroundColor: "#37D1C5" }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="p-4 bg-white rounded-lg shadow-md cursor-pointer flex items-start space-x-4 hover:bg-[#37D1C5] hover:text-white transition-colors"
-            >
-              <img src={recentPost.imageUrl} alt="Thumbnail" className="w-16 h-16 rounded-md object-cover" />
+            <div key={recentPost.id} className="flex space-x-4">
+              <img src={recentPost.image} alt={recentPost.title} className="w-16 h-16 rounded-md object-cover" />
               <div>
-                <h3 className="text-lg font-medium">{recentPost.title}</h3>
-                <p className="text-sm">{recentPost.date}</p>
-                <p className="text-sm">{recentPost.summary}</p>
+                <Link to={`/details_posts/${recentPost.id}`} className="text-sm font-semibold text-gray-700 hover:text-[#37D1C5]">
+                  {recentPost.title}
+                </Link>
+                <p className="text-xs text-gray-400">
+                  Par {recentPost.author} • {recentPost.date}
+                </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </motion.aside>

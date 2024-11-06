@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.jpg';
 
 const Navbar = () => {
@@ -15,14 +16,12 @@ const Navbar = () => {
 
   return (
     <>
-    
       <motion.nav
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 120 }}
         className="fixed top-0 left-0 w-full bg-white text-[#37D1C5] py-2 px-6 shadow-lg z-50"
       >
-      
         <div className="container mx-auto flex justify-between items-center">
           {/* Logo section */}
           <motion.div
@@ -31,9 +30,9 @@ const Navbar = () => {
             transition={{ delay: 0.3 }}
             className="flex items-center"
           >
-            <a href="/" className="hover:opacity-80 transition duration-300">
+            <Link to="/" className="hover:opacity-80 transition duration-300">
               <img src={logo} alt="Logo" className="h-12 w-12 mr-2" />
-            </a>
+            </Link>
           </motion.div>
 
           {/* Menu Hamburger */}
@@ -57,12 +56,12 @@ const Navbar = () => {
                 onMouseEnter={() => setIsHovered(index)}
                 onMouseLeave={() => setIsHovered(null)}
               >
-                <a
-                  href={item.href}
+                <Link
+                  to={item.href}
                   className="block text-lg font-medium transition duration-300 hover:text-[#37D1C5] py-2 md:py-0"
                 >
                   {item.name}
-                </a>
+                </Link>
                 {isHovered === index && (
                   <motion.div
                     layoutId="hoverIndicator"
